@@ -1,14 +1,17 @@
 <?php
-require('library/php-excel-reader/excel_reader2.php');
-require('library/SpreadsheetReader.php');
-require('db_config.php');
+require('common/library/php-excel-reader/excel_reader2.php');
+require('common/library/SpreadsheetReader.php');
+require('model/BDD.php');
+require('model/Map.php');
+
+$map = new Map();
 
 if(isset($_POST['Submit'])){
 
   $mimes = ['application/vnd.ms-excel','text/xls','text/xlsx','application/vnd.oasis.opendocument.spreadsheet'];
   if(in_array($_FILES["file"]["type"],$mimes)){
 
-    $uploadFilePath = 'uploads/'.basename($_FILES['file']['name']);
+    $uploadFilePath = 'common/uploads/'.basename($_FILES['file']['name']);
     move_uploaded_file($_FILES['file']['tmp_name'], $uploadFilePath);
 
     $Reader = new SpreadsheetReader($uploadFilePath);
@@ -50,8 +53,9 @@ if(isset($_POST['Submit'])){
         $html.="<td>".$niveau."</td>";
 
         $html.="</tr>";
-        $req = 'insert into t_etudiant_inscrit (nce, nom, prenom, dateNaiss, lieuNais, nationnalite, sexe, ufr, filiere, niveau) values("'.$nce.'","'.$nom.'","'.$prenom.'","'.$dateNaiss.'","'.$lieuNais.'","'.$nationnalite.'","'.$sexe.'","'.$ufr.'","'.$filiere.'","'.$niveau.'")';
-        $bdd->exec( $req);
+
+        $InsertEtud = $map->setEtudInscr($nce, $nom, $prenom, $dateNaiss, $lieuNais, $nationnalite, $sexe, $ufr, $filiere, $niveau);
+
      }
 
     }
@@ -64,6 +68,8 @@ if(isset($_POST['Submit'])){
     die("<br/>Sorry, File type is not allowed. Only Excel file.");
   }
 
+}else{
+    require("vew/vueAddEtudInscr.php");
 }
 
 ?>
