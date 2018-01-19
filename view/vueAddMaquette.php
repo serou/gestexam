@@ -1,13 +1,4 @@
-<!DOCTYPE html>
-
-<html>
-	<head>
-		<title>Excel Maquette Uploading</title>
-		<meta charset="utf-8">
-	    <meta name="viewport" content="width=device-width, initial-scale=1">
-		<link rel="stylesheet" type="text/css" href="common/css/bootstrap.min.css">
-		<script src="common/js/jquery-3.2.1.min.js"></script>
-	</head>
+<?php include("view/template/vueHeader.php");  ?>
 	<body>
 
 		<div class="container">
