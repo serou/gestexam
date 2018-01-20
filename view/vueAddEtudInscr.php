@@ -4,7 +4,7 @@
 		<div class="container">
 			<h1>Excel Etudiant Upload</h1>
 
-			<form method="POST" action="addEtudInscr.php" enctype="multipart/form-data">
+			<form class="form-inline" method="POST" action="addEtudInscr.php" enctype="multipart/form-data">
 				<div class="form-group">
 					<label>Upload Excel File</label>
 					<input type="file" name="file" class="form-control">

@@ -15,7 +15,7 @@
 			$filiere = strip_tags($_POST['filiere']);
 			$niveau = strip_tags($_POST['niveau']);
 
-			$getEtudiant = $map->getEtudiant($filiere, $niveau);
+			$listeCompo = $map->getLisCompo($filiere, $niveau);
 
 		}else{
             $filiere = "filiere";

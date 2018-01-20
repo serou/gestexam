@@ -35,8 +35,8 @@
           </tr>
         </thead>
         <tbody>
-  <?php if(isset ($getEtudiant)) { ?>
-        <?php foreach ($getEtudiant as $etudiant) : ?>
+  <?php if(isset ($listeCompo)) { ?>
+        <?php foreach ($listeCompo as $etudiant) : ?>
           <tr>
             <td><?php echo $etudiant->nce ?></td>
             <td><?php echo $etudiant->nom ?></td>

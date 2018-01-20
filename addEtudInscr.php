@@ -24,7 +24,7 @@ try{
         echo "You have total ".$totalSheet." sheets".
 
         $html="<table border='1'>";
-        $html.="<tr><th>Nce</th><th>Nom</th><th>Prenom</th><th>Date Naiss</th><th>Lieu Naiss</th><th>Nationnalite</th><th>Sexe</th><th>Ufr</th><th>Filiere</th><th>Niveau</th></tr>";
+        $html.="<tr><th>Nce</th><th>Nom</th><th>Prenom</th><th>Date Naiss</th><th>Lieu Naiss</th><th>Nationnalite</th><th>Sexe</th><th>Ufr</th><th>Filiere</th><th>Niveau</th><th>etat</th></tr>";
 
         /* For Loop for all sheets */
         for($i=0;$i<$totalSheet;$i++){
@@ -44,20 +44,40 @@ try{
             $filiere = isset($Row[8]) ? $Row[8] : '';
             $niveau = isset($Row[9]) ? $Row[9] : '';
 
-            $html.="<td>".$nce."</td>";
-            $html.="<td>".$nom."</td>";
-            $html.="<td>".$prenom."</td>";
-            $html.="<td>".$dateNaiss."</td>";
-            $html.="<td>".$lieuNais."</td>";
-            $html.="<td>".$nationnalite."</td>";
-            $html.="<td>".$sexe."</td>";
-            $html.="<td>".$ufr."</td>";
-            $html.="<td>".$filiere."</td>";
-            $html.="<td>".$niveau."</td>";
+            $nceEtud = $map->getNceEtud($nce);
 
-            $html.="</tr>";
+            if(!isset ($nceEtud)){  // Condition pour garantir l'unicité de l'etudiant
 
-            $InsertEtud = $map->setEtudInscr($nce, $nom, $prenom, $dateNaiss, $lieuNais, $nationnalite, $sexe, $ufr, $filiere, $niveau);
+                $html.="<td>".$nce."</td>";
+                $html.="<td>".$nom."</td>";
+                $html.="<td>".$prenom."</td>";
+                $html.="<td>".$dateNaiss."</td>";
+                $html.="<td>".$lieuNais."</td>";
+                $html.="<td>".$nationnalite."</td>";
+                $html.="<td>".$sexe."</td>";
+                $html.="<td>".$ufr."</td>";
+                $html.="<td>".$filiere."</td>";
+                $html.="<td>".$niveau."</td>";
+                $html.="<td>Ajouté</td>";
+
+                $html.="</tr>";
+
+                $InsertEtud = $map->setEtudInscr($nce, $nom, $prenom, $dateNaiss, $lieuNais, $nationnalite, $sexe, $ufr, $filiere, $niveau);
+            }else{
+                $html.="<td>".$nce."</td>";
+                $html.="<td>".$nom."</td>";
+                $html.="<td>".$prenom."</td>";
+                $html.="<td>".$dateNaiss."</td>";
+                $html.="<td>".$lieuNais."</td>";
+                $html.="<td>".$nationnalite."</td>";
+                $html.="<td>".$sexe."</td>";
+                $html.="<td>".$ufr."</td>";
+                $html.="<td>".$filiere."</td>";
+                $html.="<td>".$niveau."</td>";
+                $html.="<td>existe déjà</td>";
+
+                $html.="</tr>";
+            }
 
          }
 

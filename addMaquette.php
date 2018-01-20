@@ -24,7 +24,7 @@ try {
         echo "You have total ".$totalSheet." sheets".
 
         $html="<table border='1'>";
-        $html.="<tr><th>code_filiere</th><th>code_ue</th><th>lib_ue</th><th>lib_ecue</th><th>code_ecue</th><th>semestre</th><th>credit_ue</th><th>credit_ecue</th><th>anscol</th></tr>";
+        $html.="<tr><th>code_filiere</th><th>code_ue</th><th>lib_ue</th><th>lib_ecue</th><th>code_ecue</th><th>semestre</th><th>credit_ue</th><th>credit_ecue</th><th>anscol</th><th>etat</th></tr>";
 
         /* For Loop for all sheets */
         for($i=0;$i<$totalSheet;$i++){
@@ -43,20 +43,38 @@ try {
             $credit_ecue = isset($Row[7]) ? $Row[7] : '';
             $anscol = isset($Row[8]) ? $Row[8] : '';
 
-            $html.="<td>".$code_filiere."</td>";
-            $html.="<td>".$code_ue."</td>";
-            $html.="<td>".$lib_ue."</td>";
-            $html.="<td>".$lib_ecue."</td>";
-            $html.="<td>".$code_ecue."</td>";
-            $html.="<td>".$semestre."</td>";
-            $html.="<td>".$credit_ue."</td>";
-            $html.="<td>".$credit_ecue."</td>";
-            $html.="<td>".$anscol."</td>";
+            $codeEcue = $map->getCodeEcue($code_ecue);
 
-            $html.="</tr>";
+            if(!isset ($codeEcue)){  // Condition pour garantir l'unicité de l'ecue
 
-        $InsertMaquette = $map->setMaquette($code_filiere, $code_ue, $lib_ue, $lib_ecue, $code_ecue, $semestre, $credit_ue, $credit_ecue, $anscol );
+                    $html.="<td>".$code_filiere."</td>";
+                    $html.="<td>".$code_ue."</td>";
+                    $html.="<td>".$lib_ue."</td>";
+                    $html.="<td>".$lib_ecue."</td>";
+                    $html.="<td>".$code_ecue."</td>";
+                    $html.="<td>".$semestre."</td>";
+                    $html.="<td>".$credit_ue."</td>";
+                    $html.="<td>".$credit_ecue."</td>";
+                    $html.="<td>".$anscol."</td>";
+                    $html.="<td>Ajouté</td>";
 
+                    $html.="</tr>";
+
+                $InsertMaquette = $map->setMaquette($code_filiere, $code_ue, $lib_ue, $lib_ecue, $code_ecue, $semestre, $credit_ue, $credit_ecue, $anscol );
+            }else {
+                $html.="<td>".$code_filiere."</td>";
+                $html.="<td>".$code_ue."</td>";
+                $html.="<td>".$lib_ue."</td>";
+                $html.="<td>".$lib_ecue."</td>";
+                $html.="<td>".$code_ecue."</td>";
+                $html.="<td>".$semestre."</td>";
+                $html.="<td>".$credit_ue."</td>";
+                $html.="<td>".$credit_ecue."</td>";
+                $html.="<td>".$anscol."</td>";
+                $html.="<td>existe déja</td>";
+
+                $html.="</tr>";
+            }
          }
 
         }

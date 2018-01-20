@@ -5,6 +5,39 @@
  */
 
 class Map extends BDD{
+    //__Seletion pour verifier si un etudiant existe déjà
+        function getNceEtud($nce) {
+            $bdd = parent::getBdd();
+
+    		$sql = "SELECT *";
+    		$sql .= " FROM  t_etudiant_inscrit";
+    		$sql .= " WHERE nce ='".$nce."'";
+
+            $datas = $bdd->query($sql);
+
+            $count = array();
+    		if ($resultat = $datas->fetch(PDO::FETCH_OBJ)) {
+                $count = $resultat;
+                return $count; // Accès au résultat
+            }
+}
+
+    //__Seletion pour verifier si une ecue existe déjà
+        function getCodeEcue($code_ecue) {
+            $bdd = parent::getBdd();
+
+    		$sql = "SELECT *";
+    		$sql .= " FROM  t_maquette";
+    		$sql .= " WHERE code_ecue ='".$code_ecue."'";
+
+            $datas = $bdd->query($sql);
+
+            $count = array();
+    		if ($resultat = $datas->fetch(PDO::FETCH_OBJ)) {
+                $count = $resultat;
+                return $count; // Accès au résultat
+            }
+}
 
 //__Insert les t_etudiants inscrits
     function setEtudInscr($nce, $nom, $prenom, $dateNaiss, $lieuNais, $nationnalite, $sexe, $ufr, $filiere, $niveau) {
@@ -104,8 +137,8 @@ class Map extends BDD{
         		return $count; // Accès au résultat
             }
 
-//__Seletion des etudiants composants
-    function getEtudiant($code_fil, $niveau) {
+//__Seletion de la list de compo
+    function getLisCompo($code_fil, $niveau) {
         $bdd = parent::getBdd();
 
 		$sql = "SELECT *";
